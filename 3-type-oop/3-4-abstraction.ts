@@ -8,7 +8,13 @@
     makeCoffe(shot: number): CoffeeCup;
   }
 
-  class CoffeeMachine implements CoffeeMaker {
+  interface CommercialCoffeeMaker {
+    makeCoffe(shot: number): CoffeeCup;
+    fillCoffeeBeans(beans: number): void;
+    clean(): void;
+  }
+
+  class CoffeeMachine implements CoffeeMaker, CommercialCoffeeMaker {
     private static BEANS_GRAMM_PER_SHOT: number = 7; // class level
     private coffeeBeans: number = 0; // instance(obj) level
 
@@ -26,6 +32,11 @@
       }
       this.coffeeBeans += beans;
     }
+
+    clean() {
+      console.log('cleaning the machine...');
+    }
+
     private grindBeans(shots: number) {
       console.log(`grinding beans for ${shots}`);
       if (this.coffeeBeans < shots * CoffeeMachine.BEANS_GRAMM_PER_SHOT) {
@@ -53,11 +64,36 @@
     }
   }
 
-  const maker: CoffeeMachine = CoffeeMachine.makeMachine(32);
-  maker.fillCoffeeBeans(32);
-  maker.makeCoffe(2);
+  // const maker: CoffeeMachine = CoffeeMachine.makeMachine(32);
+  // maker.fillCoffeeBeans(32);
+  // maker.makeCoffe(2);
 
-  const maker2: CoffeeMaker = CoffeeMachine.makeMachine(32);
-  // maker2.fillCoffeeBeans(32); 사용 금지
-  maker2.makeCoffe(2);
+  // const maker2: CommercialCoffeeMaker = CoffeeMachine.makeMachine(32);
+  // maker2.fillCoffeeBeans(32);
+  // maker2.makeCoffe(2);
+  // maker2.clean();
+
+  class AmateurUser {
+    constructor(private machine: CoffeeMaker) { }
+    makeCoffee() {
+      const coffee = this.machine.makeCoffe(2);
+      console.log(coffee);
+    }
+  }
+
+  class ProBarista {
+    constructor(private machine: CommercialCoffeeMaker) { }
+    makeCoffee() {
+      const coffee = this.machine.makeCoffe(2);
+      console.log(coffee);
+      this.machine.fillCoffeeBeans(32);
+      this.machine.clean();
+    }
+  }
+
+  const maker: CoffeeMachine = CoffeeMachine.makeMachine(32);
+  const amateur = new AmateurUser(maker);
+  const pro = new ProBarista(maker);
+  amateur.makeCoffee();
+  pro.makeCoffee();
 }
