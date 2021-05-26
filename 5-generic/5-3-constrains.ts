@@ -23,7 +23,7 @@ class PartTimeEmployee implements Employee {
 
 // 세부적인 타입을 인자로 받아서 정말 추상적인 타입으로 다시 리턴하는 함수는 좋지 않다
 function payBad(employee: Employee): Employee {
-  employee.pay();
+  employee.payGeneric();
   return employee;
 }
 
@@ -37,6 +37,18 @@ const bob = new PartTimeEmployee();
 kim.workFullTime();
 bob.workPartTime();
 
-const kimAfterPay = pay(kim);
-const bobAfterPay = pay(13);
+const kimAfterPay = payGeneric(kim);
+const bobAfterPay = payGeneric(bob);
+
+const obj = {
+  name: 'feels',
+  age: 20,
+};
+
+function getValue<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+console.log(getValue(obj, 'name')); // feels
+console.log(getValue(obj, 'age')); // 20
 
