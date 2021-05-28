@@ -15,12 +15,17 @@ function closeFile(fileName: string) {
 
 }
 
-const fileName = 'bob';
-try {
-  console.log(readFile(fileName));
-} catch (e) {
-  console.log(`catched!!`);
-} finally {
-  closeFile(fileName);
-  console.log(`finally!!`);
+function run() {
+  const fileName = 'not exist!';
+  try {
+    console.log(readFile(fileName));
+  } catch (e) {
+    console.log(`catched!!`);
+    return;
+  } finally {
+    closeFile(fileName);
+    console.log(`closed!!!`);
+  }
 }
+run();
+
