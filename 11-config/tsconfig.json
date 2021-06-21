@@ -21,7 +21,7 @@
     // "declaration": true,                         /* Generates corresponding '.d.ts' file. */
     // "declarationMap": true,                      /* Generates a sourcemap for each corresponding '.d.ts' file. */
     /*  ? sourceMap = 디버깅할때 유용하게 사용할 수 있다 */
-    // "sourceMap": true,                           /* Generates corresponding '.map' file. */
+    "sourceMap": true /* Generates corresponding '.map' file. */,
     /* ? outFile = 작성한 다수의 ts파일을 딱 하나의 js 파일로 바꿀때 사용*/
     // "outFile": "./",                             /* Concatenate and emit output to single file. */
     "outDir": "./build" /* Redirect output structure to the directory. */,
